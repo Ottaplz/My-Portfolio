@@ -1,0 +1,84 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Hero Results
+{% endblock %}
+
+{% block main %}
+    <form class='pushdown below-header' action="/" method="post">
+        <div>
+            <select id="attribute" name="attribute" placeholder="Attribute">
+                <option disabled selected>Attribute</option>
+                {% for row in range(attributes|length) %}
+                    <option value="{{ attributes[row]['attribute'] }}">{{ attributes[row]["attribute"] }}</option>
+                {% endfor %}
+            </select>
+            <select id="type" name="type" placeholder="Type">
+                <option disabled selected>Type</option>
+                {% for row in range(types|length) %}
+                    <option value="{{ types[row]['type'] }}">{{ types[row]["type"] }}</option>
+                {% endfor %}
+            </select>
+            <select id="main_role" name="main_role" placeholder="main_role">
+                <option disabled selected>Role</option>
+                {% for row in range(roles|length) %}
+                    <option value="{{ roles[row]['main_role'] }}">{{ roles[row]["main_role"] }}</option>
+                {% endfor %}
+            </select>
+            <select id="traits" name="traits" placeholder="Traits">
+                <option disabled selected>Traits</option>
+                {% for row in range(traits|length) %}
+                    <option value="{{ traits[row]['trait'] }}">{{ traits[row]["trait"] }}</option>
+                {% endfor %}
+            </select>
+            <input type="checkbox" id="sub_role" name="sub_role" value="sub_role">
+            <label for="sub_role">Include off-role heroes!</label><br>
+        </div>
+        <button class="btn btn-primary" type="submit">Help!</button>
+    </form>
+<!-- Print this if any rows are returned -->
+    <div>
+        <h2 class='mini-push'>Hero Options:</h2>
+        <table>
+            <tbody>
+                {% for row in range(suggestions|length) %}
+                    <tr>
+                        <td>{{ suggestions[row]["name"] }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+<!-- If off-role if selected -->
+    {% if offsuggestions %}
+        <div>
+            <h2>Off-role Hero Options:</h2>
+            <table>
+                <tbody>
+                    {% for row in range(offsuggestions|length) %}
+                        <tr>
+                            <td>{{ offsuggestions[row]["name"] }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endif %}
+
+<!-- if no heroes are returned -->
+    {% if suggestions|length == 0 %}
+        <div>
+            <h2>Defeat!</h2>
+            <p>No hero matches your requirements, try with less requirements! </p>
+        </div>
+    {% endif %}
+
+<!-- if no heroes are returned from off-role option -->
+    {% if (offsuggestions|length == 0) and (offsuggestions) %}
+        <div>
+            <h2>Defeat!</h2>
+            <p>No offrole heroe's exist with those requirements!</p>
+        </div>
+    {% endif %}
+
+{% endblock %}
