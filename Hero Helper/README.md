@@ -1,4 +1,4 @@
-# Hero Helper
+# Hero Helper 1.0
 #### Video Demo:  <URL HERE>
 #### Description:
 This project is what I would describe as very niche and mostly something that I personally wanted to create
